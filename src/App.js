@@ -18,7 +18,6 @@ function App() {
 
   const categories = Object.keys(groupBy(productList, 'category'));
   categories.unshift('All')
-
   const onChange = (category) => {
     if (category === 'All'){
         setProducts(productList);
@@ -36,7 +35,7 @@ function App() {
     .then((res) => res.json())
     .then((json) => 
       setProducts(json))
-  })
+  }, [])
 
   return (
       <div>
