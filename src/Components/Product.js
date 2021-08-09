@@ -1,6 +1,7 @@
 import './Product.css';
 
-function Product({title, price, img, description}) {
+function Product({title, price, img, description, category}) {
+
     return (
         <div className="product-card">
             <div className="product-image">
@@ -8,8 +9,9 @@ function Product({title, price, img, description}) {
             </div>
             <div className="product-info">
             <h5>{title}</h5>
+            <h5>{category}</h5>
             <h6>${price}</h6>
-            <h7>{description}</h7>
+            <h6>{description}</h6>
             </div>
         </div>
      );
