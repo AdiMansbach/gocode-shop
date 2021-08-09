@@ -10,7 +10,7 @@ function Products() {
         <section className="products">
 
             {productList.map((product) => 
-                <Product key={product.Id} title={product.title} price={product.price} img={product.image} description={image.description}/>
+                <Product key={product.Id} title={product.title} price={product.price} img={product.image} description={product.description}/>
             )};
 
             {/* <Product title="aa" price="$11" img="https://cdn.shopify.com/s/files/1/0938/8938/products/10231100205_1_1315x1800_300_CMYK_1024x1024.jpeg?v=1445623369"/>
