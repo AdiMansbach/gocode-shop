@@ -12,13 +12,9 @@ function Header({categories, onChange}) {
                 <div className="collection-sort">
                     <label>Filter by:</label>
                     <select onChange={(e) => onChange(e.target.value)}>
-                    <option value="All">All</option>
-                   
-                    <option value="men's clothing">men's clothing</option>
-                    <option value="jewelery">jewelery</option>
-                        {/* {categories.map((c) => (
-                            <option key={c.key} value={c.value}>{c.label}</option>
-                            ))} */}
+                        {categories.map((option) => (
+                            <option key={option} value={option}>{option}</option>
+                            ))}
                     </select>
                 </div>
 

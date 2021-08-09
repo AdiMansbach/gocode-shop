@@ -17,14 +17,7 @@ function App() {
     }, {});
 
   const categories = Object.keys(groupBy(productList, 'category'));
-  let categoriesMap = [];
-  let key1 = 0;
-  for (let c of categories){
-    // console.log('c ' + JSON.stringify(c))
-    categoriesMap.push({key: key1, value: c, label: c});
-    key1++;
-  }
-  // console.log('categoriesMap ' + JSON.stringify(categoriesMap))
+  categories.unshift('All')
 
   const onChange = (category) => {
     if (category === 'All'){
