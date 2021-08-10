@@ -4,6 +4,10 @@ import Header from './Components/Header';
 import Products from './Components/Products';
 import React, { useState, useEffect } from "react";
 
+const groupBy = (xs, key) => xs.reduce((rv, x) => {
+  (rv[x[key]] = true || []);
+  return rv;
+}, {});
 
 function App() {
 
@@ -12,12 +16,7 @@ function App() {
   const [initialProducts, setInitialProducts] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const [spinner, setSpinner] = useState(false);
-
-  const groupBy = (xs, key) => xs.reduce((rv, x) => {
-      (rv[x[key]] = true || []);
-      return rv;
-    }, {});
+  const [loading, setLoading] = useState(false);
 
   let categories = [];//= Object.keys(groupBy(productList, 'category'));
 
@@ -31,7 +30,7 @@ function App() {
   }
 
   useEffect (() => {
-    setSpinner(true)
+    setLoading(true)
 
     console.log('effect')
     fetch("https://fakestoreapi.com/products")
@@ -41,16 +40,17 @@ function App() {
     .then((json) => {
       setProducts(json)
       setInitialProducts(json);
-      setSpinner(false)
+      setLoading(false)
 
     })
   }, [])
 
   categories = Object.keys(groupBy(initialProducts, 'category'));
   categories.unshift('All');
+  
   return (
       <div>
-          {spinner && <div className="loader"></div>}
+          {loading && <div className="loader"></div>}
           <Header categories={categories} onChange={onChange}/>
           <Products products={products}/>
 
