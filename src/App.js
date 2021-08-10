@@ -12,6 +12,9 @@ function App() {
   const [initialProducts, setInitialProducts] = useState([]);
   const [products, setProducts] = useState([]);
 
+  const [spinner, setSpinner] = useState(false);
+
+
   const groupBy = (xs, key) => xs.reduce((rv, x) => {
       (rv[x[key]] = true || []);
       return rv;
@@ -29,12 +32,18 @@ function App() {
   }
 
   useEffect (() => {
+    setSpinner(true)
+
     console.log('effect')
     fetch("https://fakestoreapi.com/products")
-    .then((res) => res.json())
+    .then((res) => 
+      res.json()
+    )
     .then((json) => {
       setProducts(json)
       setInitialProducts(json);
+      setSpinner(false)
+
     })
   }, [])
 
@@ -42,7 +51,7 @@ function App() {
   categories.unshift('All');
   return (
       <div>
-          {/* <div class="loader"></div> */}
+          {spinner && <div className="loader"></div>}
           <Header categories={categories} onChange={onChange}/>
           <Products products={products}/>
 
