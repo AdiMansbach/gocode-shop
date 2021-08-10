@@ -2,8 +2,6 @@ import './Header.css';
 
 function Header({categories, onChange}) {
 
-
-
     return (
         <nav className="product-filter">
             <h1>Jackets</h1>

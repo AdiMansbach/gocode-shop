@@ -3,7 +3,6 @@ import Product from './Product';
 
 
 function Products({products}) {
-
     return(
         <section className="products">
 
