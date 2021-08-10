@@ -14,7 +14,6 @@ function App() {
 
   const [spinner, setSpinner] = useState(false);
 
-
   const groupBy = (xs, key) => xs.reduce((rv, x) => {
       (rv[x[key]] = true || []);
       return rv;
