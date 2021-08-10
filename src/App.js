@@ -2,6 +2,7 @@
 import './App.css';
 import Header from './Components/Header';
 import Products from './Components/Products';
+import Loading from './Components/Loading';
 import React, { useState, useEffect } from "react";
 
 const groupBy = (xs, key) => xs.reduce((rv, x) => {
@@ -47,10 +48,10 @@ function App() {
 
   categories = Object.keys(groupBy(initialProducts, 'category'));
   categories.unshift('All');
-  
+
   return (
       <div>
-          {loading && <div className="loader"></div>}
+          {loading && <Loading />}
           <Header categories={categories} onChange={onChange}/>
           <Products products={products}/>
 
