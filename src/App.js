@@ -4,11 +4,13 @@ import Header from './Components/Header';
 import Products from './Components/Products';
 import Loading from './Components/Loading';
 import React, { useState, useEffect } from "react";
+import ShoppingContext from './ShoppingContext';
 
 const groupBy = (xs, key) => xs.reduce((rv, x) => {
   (rv[x[key]] = true || []);
   return rv;
 }, {});
+
 
 function App() {
 
@@ -19,9 +21,11 @@ function App() {
 
   const [loading, setLoading] = useState(false);
 
+ const providerValue = { initialProducts, setProducts };
+
   let categories = [];//= Object.keys(groupBy(productList, 'category'));
 
-  const onChange = (category) => {
+  const onChangeCategory = (category) => {
     if (category === 'All'){
         setProducts(initialProducts);
     }
@@ -50,12 +54,14 @@ function App() {
   categories.unshift('All');
 
   return (
-      <div>
-          {loading && <Loading />}
-          <Header categories={categories} onChange={onChange}/>
-          <Products products={products}/>
+    <ShoppingContext.Provider value={providerValue}>
+        <div>
+            {loading && <Loading />}
+            <Header categories={categories} onChange={onChangeCategory}/>
+            <Products products={products}/>
 
-      </div>
+        </div>
+      </ShoppingContext.Provider>
   );
 }
 

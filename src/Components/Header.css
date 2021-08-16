@@ -1,10 +1,8 @@
-  
 h1 {
   font-size: 28px;
   font-weight: 300;
   flex: 1;
 }
-    
 
 .product-filter {
   display: flex;
@@ -45,4 +43,9 @@ label {
   .sort {
     align-self: flex-start;
   }
+}
+
+.slider {
+  width: 300px;
+  left: 100px;
 }
