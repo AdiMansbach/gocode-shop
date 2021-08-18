@@ -13,8 +13,11 @@ const useStyles = makeStyles({
 function Header({categories, onChange}) {
     const classes = useStyles();
 
-    const { initialProducts, setProducts } = useContext(ShoppingContext);
+    const { initialProducts, setProducts, setShoppingCart } = useContext(ShoppingContext);
     const [ showSlider, setShowSlider ] = useState(false);
+    
+    let maxVal = Math.max(...initialProducts.map(p => p.price))
+    console.log('maxVal ' + maxVal)
 
     const [value, setValue] = React.useState([0, 5000]);
 
@@ -41,49 +44,46 @@ function Header({categories, onChange}) {
       }
 
     return (
-        <div>
         <nav className="product-filter">
-            <h1>Jackets</h1>
+            {/* <h1>Jackets</h1> */}
+            <div>
 
-            <div className="sort">
-                <div className="collection-sort">
-                    <label>Filter by:</label>
-                    <select onChange={(e) => onChange(e.target.value)}>
-                        {categories.map((option) => (
-                            <option key={option} value={option}>{option}</option>
-                            ))}
-                    </select>
-                </div>
+                <div className="sort">
+                    <div className="collection-sort">
+                        <label>Filter by:</label>
+                        <select onChange={(e) => onChange(e.target.value)}>
+                            {categories.map((option) => (
+                                <option key={option} value={option}>{option}</option>
+                                ))}
+                        </select>
+                    </div>
 
-                <div className="collection-sort">
-                    <label>Sort by:</label>
-                    <select onChange={(e) => checkResult(e.target.value)}>
-                    <option value="/">Featured</option>
-                    <option value="/">Best Selling</option>
-                    <option value="/">Alphabetically, A-Z</option>
-                    <option value="/">Alphabetically, Z-A</option>
-                    <option value="lowToHigh">Price, low to high</option>
-                    <option value="highToLow">Price, high to low</option>
-                    <option value="/">Date, new to old</option>
-                    <option value="/">Date, old to new</option>
-                    </select>
+                    <div className="collection-sort">
+                        <label>Sort by:</label>
+                        <select onChange={(e) => checkResult(e.target.value)}>
+                        <option value="/">Featured</option>
+                        <option value="/">Best Selling</option>
+                        <option value="/">Alphabetically, A-Z</option>
+                        <option value="/">Alphabetically, Z-A</option>
+                        <option value="lowToHigh">Price, low to high</option>
+                        <option value="highToLow">Price, high to low</option>
+                        <option value="/">Date, new to old</option>
+                        <option value="/">Date, old to new</option>
+                        </select>
+                    </div>
                 </div>
-              
-            </div>
-         
-        </nav>
-        <nav>
-            <div className={classes.root}>
-                {showSlider && <Slider
+                <div className={classes.root}>
+                <Slider
                     value={value}
+                    max={maxVal}
                     onChange={handleChange}
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
                     getAriaValueText={valuetext}
-                />}
+                />
+                </div> 
             </div>
         </nav>
-        </div>
     )
 }
 

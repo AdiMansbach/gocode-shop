@@ -3,8 +3,10 @@ import './App.css';
 import Header from './Components/Header';
 import Products from './Components/Products';
 import Loading from './Components/Loading';
+import ShoppingCart from './Components/ShoppingCart';
 import React, { useState, useEffect } from "react";
 import ShoppingContext from './ShoppingContext';
+// import { ShoppingCart } from '@material-ui/icons';
 
 const groupBy = (xs, key) => xs.reduce((rv, x) => {
   (rv[x[key]] = true || []);
@@ -21,7 +23,9 @@ function App() {
 
   const [loading, setLoading] = useState(false);
 
- const providerValue = { initialProducts, setProducts };
+  const [productsInCart, setProductsInCart] = useState([]);
+
+  const providerValue = { initialProducts, setProducts, productsInCart, setProductsInCart };
 
   let categories = [];//= Object.keys(groupBy(productList, 'category'));
 
@@ -55,11 +59,11 @@ function App() {
 
   return (
     <ShoppingContext.Provider value={providerValue}>
-        <div>
+        <div className="main">
             {loading && <Loading />}
+            <ShoppingCart/>
             <Header categories={categories} onChange={onChangeCategory}/>
             <Products products={products}/>
-
         </div>
       </ShoppingContext.Provider>
   );
