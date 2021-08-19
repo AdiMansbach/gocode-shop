@@ -10,29 +10,48 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ShoppingContext from '../ShoppingContext';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import AddRemoveProduct from './AddRemoveProduct';
+import { yellow } from "@material-ui/core/colors";
+import { PlayCircleFilledWhite } from "@material-ui/icons";
+
 
 const useStyles = makeStyles({
+
   list: {
     width: 500,
   },
   fullList: {
     width: 'auto',
   },
+  listItemSize: {
+  },
+  header: {
+    fontWeight: 600,
+    backgroundColor: '#6266DB',
+    color: '#FDFEFE'
+  },
   imgSize: {
     width: 40,
     height: 40
   },
   titleSize: {
-      width: 230
-  },
+      width: 220,
+ },
   amountSize: {
-      width: 55
+      width: 120
+  },
+  priceSize: {
+      width: 10,
+      marginRight: 12
   }
 });
 
 export default function ShoppingCart() {
   const { initialProducts, setProducts, productsInCart, setProductsInCart } = useContext(ShoppingContext);
 console.log('shoppingCart ' + JSON.stringify(productsInCart))
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+let sum = productsInCart.map(p => p.price*p.amount).reduce(reducer);
+
 
   const classes = useStyles();
   const [state, setState] = React.useState({
@@ -53,30 +72,51 @@ console.log('shoppingCart ' + JSON.stringify(productsInCart))
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
+    //   onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
-      <List>
+      <List className={classes.header}>
         {['My Shopping Cart'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon><ShoppingCartIcon/></ListItemIcon>
+            <ListItemIcon className={classes.header}><ShoppingCartIcon/></ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
       <Divider />
+            {/* <List>
+                <ListItem>
+                    <ListItemText className={classes.imgSize} primary="image" />
+                    <ListItemText className={classes.titleSize} primary="product" />
+                    <ListItemText className={classes.amountSize} primary="amount" />
+                    <ListItemText primary="price" />
+                </ListItem>
+            </List>
+
+      <Divider /> */}
  
       <List>
         {productsInCart.length > 0 && productsInCart.map((product) => (
-          <ListItem button key={product.id}>
+
+          <ListItem button key={product.id} className={classes.listItemSize} alignItems='center' >
             <ListItemIcon className={classes.imgSize}><img src={product.img}/></ListItemIcon>
             <ListItemText className={classes.titleSize} primary={product.title} />
-
-            <ListItemText className={classes.amountSize} primary={product.amount} />
-            $<ListItemText primary={product.price} />
+            {/* <ListItemText className={classes.amountSize} primary={product.amount} /> */}
+            <div className={classes.amountSize} ><AddRemoveProduct key={product.id} id={product.id} title={product.title} price={product.price} img={product.img}/></div>
+            $<ListItemText className={classes.priceSize} primary={product.price*product.amount} />
           </ListItem>
         ))}
       </List>
+      <Divider />
+      <List>
+            <ListItem>
+                <ListItemText className={classes.imgSize} primary="total" />
+                <ListItemText className={classes.titleSize} />
+                <ListItemText className={classes.amountSize}  />
+                $<ListItemText primary={sum} />
+            </ListItem>
+        </List>
+
     </div>
   );
 

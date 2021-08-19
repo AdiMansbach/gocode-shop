@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
+import AddRemoveProduct from './AddRemoveProduct';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 function Product({id, title, price, img, description, category}) {
     const { initialProducts, setProducts, productsInCart, setProductsInCart } = useContext(ShoppingContext);
 
-    const productInCart = productsInCart.length > 0 ? productsInCart.find(product => product.id == id) : undefined;
+    // const productInCart = productsInCart.length > 0 ? productsInCart.find(product => product.id == id) : undefined;
 
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles();
@@ -48,38 +49,38 @@ function Product({id, title, price, img, description, category}) {
       setExpanded(!expanded);
     };
 
-    const addToCart = () => {
-        console.log('addToCart')
-        console.log('productInCart ' + JSON.stringify(productInCart))
+    // const addToCart = () => {
+    //     console.log('addToCart')
+    //     console.log('productInCart ' + JSON.stringify(productInCart))
 
-        if (productInCart === undefined){
-            let item = {id: id, title: title, category: category, price: price, img: img, description: description, amount: 1};
-            setProductsInCart([item, ...productsInCart]);
-            console.log('productsInCart ' + JSON.stringify(productsInCart))
+    //     if (productInCart === undefined){
+    //         let item = {id: id, title: title, category: category, price: price, img: img, description: description, amount: 1};
+    //         setProductsInCart([item, ...productsInCart]);
+    //         console.log('productsInCart ' + JSON.stringify(productsInCart))
 
-        }
-        else{
-            setProductsInCart(productsInCart.map(product => product.id === id ? {...product, amount: product.amount+1} : product));
-        }
-        // setProducts(initialProducts.map(product => product.id === id ? {...product, amount: product.amount+1} : product));
-      }
+    //     }
+    //     else{
+    //         setProductsInCart(productsInCart.map(product => product.id === id ? {...product, amount: product.amount+1} : product));
+    //     }
+    //     // setProducts(initialProducts.map(product => product.id === id ? {...product, amount: product.amount+1} : product));
+    //   }
 
-      const removeFromCart = () => {
-        console.log('removeFromCart')
-        console.log('productsInCart ' + JSON.stringify(productsInCart))
+    //   const removeFromCart = () => {
+    //     console.log('removeFromCart')
+    //     console.log('productsInCart ' + JSON.stringify(productsInCart))
 
-        console.log('productInCart ' + JSON.stringify(productInCart))
+    //     console.log('productInCart ' + JSON.stringify(productInCart))
 
-        if (productInCart !== undefined){
-            if (productInCart.amount > 1){
-                setProductsInCart(productsInCart.map(product => product.id === id ? {...product, amount: product.amount-1} : product));
-            }
-            else{
-                setProductsInCart(productsInCart.filter(product => product.id !== id));
-            }  
-        }
+    //     if (productInCart !== undefined){
+    //         if (productInCart.amount > 1){
+    //             setProductsInCart(productsInCart.map(product => product.id === id ? {...product, amount: product.amount-1} : product));
+    //         }
+    //         else{
+    //             setProductsInCart(productsInCart.filter(product => product.id !== id));
+    //         }  
+    //     }
         
-      }
+    //   }
 
 
     return (
@@ -93,12 +94,12 @@ function Product({id, title, price, img, description, category}) {
             <h6>${price}</h6>
             {/* <button type="button" onClick={ () => removeFromCart()}>-</button> */}
             {/* <button type="button" onClick={ () => addToCart()}>+</button> */}
-            <div className="addRemoveDiv">
+            {/* <div className="addRemoveDiv">
                 {productInCart && <RemoveShoppingCartIcon className="padding" onClick={ () => removeFromCart()}/>}
                 {productInCart && <span className="padding bold">{productInCart.amount}</span>}
                 <AddShoppingCartIcon className="padding" onClick={ () => addToCart()}/>
-            </div>
-            {/* <h6>{description}</h6> */}
+            </div> */}
+            <AddRemoveProduct key={id} id={id} title={title} price={price} img={img}/>
             </div>
             <IconButton
           className={clsx(classes.expand, {
