@@ -5,7 +5,7 @@ import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
 
 function AddRemoveProduct({id, title, price, img, amount}){
-    console.log('id ' + id)
+    // console.log('id ' + id)
 
     const { initialProducts, setProducts, productsInCart, setProductsInCart } = useContext(ShoppingContext);
 

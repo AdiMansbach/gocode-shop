@@ -10,6 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
 import AddRemoveProduct from './AddRemoveProduct';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -37,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 function Product({id, title, price, img, description, category}) {
-    const { initialProducts, setProducts, productsInCart, setProductsInCart } = useContext(ShoppingContext);
+    const { initialProducts, setProducts, productsInCart, setProductsInCart, products } = useContext(ShoppingContext);
 
     // const productInCart = productsInCart.length > 0 ? productsInCart.find(product => product.id == id) : undefined;
 
@@ -89,6 +95,8 @@ function Product({id, title, price, img, description, category}) {
                 <img src={img}/>
             </div>
             <div className="product-info">
+            <Link to={"/products/" + id}>a</Link>
+
             <h5>{title}</h5>
             <h5>{category}</h5>
             <h6>${price}</h6>
