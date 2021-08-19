@@ -50,7 +50,7 @@ export default function ShoppingCart() {
   const { initialProducts, setProducts, productsInCart, setProductsInCart } = useContext(ShoppingContext);
 console.log('shoppingCart ' + JSON.stringify(productsInCart))
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-let sum = productsInCart.map(p => p.price*p.amount).reduce(reducer);
+let sum = productsInCart.length > 0 ? productsInCart.map(p => p.price*p.amount).reduce(reducer) : 0;
 
 
   const classes = useStyles();
@@ -110,7 +110,7 @@ let sum = productsInCart.map(p => p.price*p.amount).reduce(reducer);
       <Divider />
       <List>
             <ListItem>
-                <ListItemText className={classes.imgSize} primary="total" />
+                <ListItemText className={classes.imgSize} primary="Total" />
                 <ListItemText className={classes.titleSize} />
                 <ListItemText className={classes.amountSize}  />
                 $<ListItemText primary={sum} />
